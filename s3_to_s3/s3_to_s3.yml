@@ -1,0 +1,41 @@
+in:
+  type: s3
+  bucket: BUCKET_NAME  # 参照先バケットを指定
+  path_prefix: PATH # 解析対象のファイルパスを指定
+  endpoint: ENDPOINT # バケットが存在するエンドポイントを指定
+  decoders:
+    - {type: gzip}
+  parser:
+    type: jsonpath
+    #stop_on_invalid_record: false
+    root: $.Records
+    schema:
+      - {name: eventName, type: string}
+      - {name: eventSource, type: string}
+      - {name: awsRegion, type: string}
+      - {name: sourceIPAddress, type: string}
+      - {name: eventTime, type: string}
+      - {name: requestID, type: string}
+      - {name: eventID, type: string}
+      - {name: userType, path: userIdentity.type, type: string}
+      - {name: userArn, path: userIdentity.arn, type: string}
+      - {name: userName, path: userIdentity.userName, type: string}
+      - {name: accesskeyid, path: userIdentity.accessKeyId, type: string}
+      - {name: userAgent, type: string}
+      - {name: errorCode, type: string}
+      - {name: errorMessage, type: string}
+    flatten_json_array: true
+  auth_method: instance
+out:
+  type: s3
+  path_prefix: PATH # 保存するファイルパスを指定 ex) data/test
+  file_ext: .csv
+  bucket: BUCKET_NAME  # 参照先バケットを指定
+  endpoint: ENDPOINT # バケットが存在するエンドポイントを指定
+  formatter:
+    type: csv
+    delimeter: ","
+    newline: CRLF
+    newline_in_field: LF
+    charset: UTF-8
+    header_line: true
