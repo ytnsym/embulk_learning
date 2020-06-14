@@ -29,7 +29,7 @@ in:
 out:
   type: s3
   path_prefix: PATH # 保存するファイルパスを指定 ex) data/test
-  file_ext: .csv
+  file_ext: .csv # BUCKET_NAME/data/test.csv が出力される
   bucket: BUCKET_NAME  # 参照先バケットを指定
   endpoint: ENDPOINT # バケットが存在するエンドポイントを指定
   formatter:
