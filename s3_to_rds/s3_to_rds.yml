@@ -34,10 +34,3 @@ out:
   database: DB_NAME # dbを指定
   table: TABLE_NAME # テーブル名を指定
   mode: insert
-  formatter:
-    type: csv
-    delimeter: ","
-    newline: CRLF
-    newline_in_field: LF
-    charset: UTF-8
-    header_line: true
